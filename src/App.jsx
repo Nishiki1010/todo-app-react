@@ -1,34 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
+import './index.css';
+export const App = () => {
+  const [todoText, setTodoText] = useState('');
 
-function App() {
+  const [incompleteTodos, setIncompleteTodos] = useState(['aadddddddaa', 'eeeeeee']);
+
+  const [completeTodos, setcompleteTodos] = useState(['uuuuuu']);
+
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+
+  const onClickAdd = () => {
+    alert(todoText);
+  }
+
   return (
     <>
-      <div>
-        <input type="text" placeholder="TODOを入力してください" />
-        <button>追加</button>
+      <div className="input-area">
+        <input type="text" placeholder="TODOを入力してください" value={todoText} onChange={onChangeTodoText}/>
+        <button onClick={onClickAdd}>追加</button>
       </div>
       
-      <div>
-        <p>未完了のTODO</p>
+      <div className="incomplete-area">
+        <p className="title">未完了のTODO</p>
         <ul>
-          <li>aa</li>
-          <button>完了</button>
-          <button>削除</button>
-        </ul>
-        <ul>
-          <li>ii</li>
-          <button>完了</button>
-          <button>削除</button>
+          {incompleteTodos.map((todo) => {
+            return (
+              <li key={todo}>
+                <div className="list-row">
+                  <p>{todo}</p>
+                  <button>完了</button>
+                  <button>削除</button>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
-      <div>
-        <p>完了TODO</p>
+      <div className="complete-area">
+        <p className="title">完了TODO</p>
           <ul>
-            <li>uu</li>
-            <button>戻す</button>
+            {completeTodos.map((todo) => {
+              return(
+                <li key={todo}>
+                  <div className="list-row">
+                    <p>{todo}</p>
+                    <button>戻す</button>
+                  </div>
+                </li>
+              )
+            })}
+
           </ul>
       </div>
+
     </>
   )
 }
